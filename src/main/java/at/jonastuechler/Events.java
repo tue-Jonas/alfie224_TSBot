@@ -14,8 +14,6 @@ public class Events {
 
     private static TS3Api api = Main.bot.getApi();
 
-    private static HashMap<String, Long> qafkUsers = new HashMap<>();
-
     public static void loadEvents() {
         api.registerAllEvents();
         api.addTS3Listeners(new TS3EventAdapter() {
@@ -42,7 +40,9 @@ public class Events {
     }
 
     private static void qafkCommand(TextMessageEvent e) {
-       // TODO: implement this
+        qafkUsers.put(e.getInvokerUniqueId(), System.currentTimeMillis());
+        api.moveClient(e.getInvokerId(), Integer.parseInt(Main.config.getPropertyValue("teamspeak.afkChannel.quick")));
+        api.sendPrivateMessage(e.getInvokerId(), "Moved you to the AFK channel.");
     }
 
 }
