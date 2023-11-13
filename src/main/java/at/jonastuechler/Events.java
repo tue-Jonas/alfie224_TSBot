@@ -18,15 +18,23 @@ public class Events {
         api.addTS3Listeners(new TS3EventAdapter() {
             @Override
             public void onTextMessage(TextMessageEvent e) {
-                if (e.getMessage().equalsIgnoreCase("!channels")) {
-                    String channelList = "All channels:\n";
-                    channelList += api.getChannels().stream()
-                            .map(channel -> "- " + channel.getName() + " (" + channel.getId() + ")")
-                            .collect(Collectors.joining("\n"));
-                    api.sendPrivateMessage(e.getInvokerId(), channelList);
-                }
+                if (e.getMessage().equalsIgnoreCase("!channels")) channelsCommand(e);
+                if (e.getMessage().equalsIgnoreCase("!afk")) afkCommand(e);
             }
         });
+    }
+
+    private static void channelsCommand(TextMessageEvent e) {
+        String channelList = "All channels:\n";
+        channelList += api.getChannels().stream()
+                .map(channel -> "- " + channel.getName() + " (" + channel.getId() + ")")
+                .collect(Collectors.joining("\n"));
+        api.sendPrivateMessage(e.getInvokerId(), channelList);
+    }
+
+    private static void afkCommand(TextMessageEvent e) {
+        api.moveClient(e.getInvokerId(), Integer.parseInt(Main.config.getPropertyValue("teamspeak.afkChannel")));
+        api.sendPrivateMessage(e.getInvokerId(), "Moved you to the AFK channel.");
     }
 
 }

@@ -3,11 +3,12 @@ package at.jonastuechler;
 public class Main {
 
     public static Bot bot;
+    public static AppConfig config;
 
     public static void main(String[] args) {
         System.out.println("Starting the application...");
 
-        AppConfig config = new AppConfig();
+        config = new AppConfig();
         String host = config.getPropertyValue("teamspeak.host");
         int port = Integer.parseInt(config.getPropertyValue("teamspeak.port"));
         String queryName = config.getPropertyValue("teamspeak.query.name");
