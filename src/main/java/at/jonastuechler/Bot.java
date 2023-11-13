@@ -60,6 +60,14 @@ public class Bot {
             api.setNickname(nickname);
     }
 
+    /**
+     * Stops the bot
+     */
+    public void stop() {
+        api.logout();
+        query.exit();
+    }
+
 
     // ACCESSORS ------------------------------------------------------------------------------------------------------
 
