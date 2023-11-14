@@ -1,5 +1,9 @@
 package at.jonastuechler;
 
+import at.jonastuechler.entities.AppConfig;
+import at.jonastuechler.entities.Bot;
+import at.jonastuechler.services.Qafk;
+
 public class Main {
 
     public static Bot bot;

@@ -1,4 +1,4 @@
-package at.jonastuechler;
+package at.jonastuechler.entities;
 
 import java.io.IOException;
 import java.io.InputStream;

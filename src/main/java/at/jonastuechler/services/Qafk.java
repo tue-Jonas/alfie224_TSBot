@@ -1,5 +1,6 @@
-package at.jonastuechler;
+package at.jonastuechler.services;
 
+import at.jonastuechler.Main;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 
 import java.util.HashMap;
