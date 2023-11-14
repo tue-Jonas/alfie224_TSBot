@@ -3,6 +3,11 @@ package at.jonastuechler;
 import at.jonastuechler.entities.AppConfig;
 import at.jonastuechler.entities.Bot;
 import at.jonastuechler.services.Qafk;
+import com.github.theholywaffle.teamspeak3.api.ChannelProperty;
+import com.github.theholywaffle.teamspeak3.api.wrapper.ServerQueryInfo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -29,6 +34,12 @@ public class Main {
         bot.setNickname(nickname);
         System.out.println("Connected to \"" + bot.getApi().getServerInfo().getName() + "\"");
 
+        // Shutdown hook for disconnecting the bot properly
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Application shutdown - disconnecting the bot properly...");
+            bot.stop();
+        }));
+
         // Initialize the events
         Events.loadEvents();
         System.out.println("Events loaded.");
@@ -38,12 +49,30 @@ public class Main {
         qafk.startService();
         System.out.println("Quick AFK Service started.");
 
-        // Shutdown hook for disconnecting the bot properly
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Application shutdown - disconnecting the bot properly...");
-            bot.stop();
-        }));
+        // Set contact channel description
+        setContactChannelDescription();
+        System.out.println("Contact channel description set.");
 
         System.out.println("Application fully started.");
+    }
+
+    /**
+     * Sets the contact channel description with a reference to the bot
+     */
+    private static void setContactChannelDescription() {
+        int contactChannelId = Integer.parseInt(config.getPropertyValue("teamspeak.contactChannel"));
+
+        ServerQueryInfo qi = bot.getApi().whoAmI();
+        // [URL=client://35/2PchdVpDKFat86j04xQb+AQaCBc=~Alfie224-Bot]Alfie224-Bot[/URL]
+        String description = String.format("[URL=client://%s/%s~%s]Click to contact the bot.[/URL]",
+                qi.getId(),
+                qi.getUniqueIdentifier(),
+                qi.getNickname()
+        );
+
+        Map<ChannelProperty, String> channelProperties = new HashMap<>();
+        channelProperties.put(ChannelProperty.CHANNEL_DESCRIPTION, description);
+
+        bot.getApi().editChannel(contactChannelId, channelProperties);
     }
 }
