@@ -26,7 +26,7 @@ public class Events {
 
             @Override
             public void onClientJoin(ClientJoinEvent e) {
-                if (Main.config.getPropertyValue("teamspeak.welcomeMessage.active").equalsIgnoreCase("false")) return;
+                if (!Main.config.getPropertyValue("teamspeak.welcomeMessage.active").equalsIgnoreCase("true")) return;
                 String message = Main.config.getPropertyValue("teamspeak.welcomeMessage");
                 message = message.replace("{name}", e.getClientNickname());
                 api.sendPrivateMessage(e.getClientId(), message);
