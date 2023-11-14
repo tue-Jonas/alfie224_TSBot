@@ -1,6 +1,7 @@
 package at.jonastuechler;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
+import com.github.theholywaffle.teamspeak3.api.event.ClientJoinEvent;
 import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 
@@ -21,6 +22,14 @@ public class Events {
                 if (e.getMessage().equalsIgnoreCase("!channels")) channelsCommand(e);
                 if (e.getMessage().equalsIgnoreCase("!afk")) afkCommand(e);
                 if (e.getMessage().equalsIgnoreCase("!qafk")) quickAfkCommand(e);
+            }
+
+            @Override
+            public void onClientJoin(ClientJoinEvent e) {
+                if (Main.config.getPropertyValue("teamspeak.welcomeMessage.active").equalsIgnoreCase("false")) return;
+                String message = Main.config.getPropertyValue("teamspeak.welcomeMessage");
+                message = message.replace("{name}", e.getClientNickname());
+                api.sendPrivateMessage(e.getClientId(), message);
             }
         });
     }
