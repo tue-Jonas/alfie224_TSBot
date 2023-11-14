@@ -16,7 +16,7 @@ public class Qafk {
         this.api = api;
     }
 
-    public void addUser(String uuid) {
+    public void listUser(String uuid) {
         qafkUsers.put(uuid, System.currentTimeMillis());
     }
 
@@ -32,7 +32,9 @@ public class Qafk {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                if (qafkUsers.isEmpty()) return;
                 qafkUsers.forEach((uuid, time) -> {
+                    System.out.println("Checking user " + uuid + "...");
                     // After time specified in config
                     if (System.currentTimeMillis() - time > 1000L * 60 * minutes) {
                         // kick the user from the server if he is still in the afk channel
@@ -44,7 +46,7 @@ public class Qafk {
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, 1000 * 10);
     }
 
 }

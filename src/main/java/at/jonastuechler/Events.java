@@ -4,7 +4,6 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +20,7 @@ public class Events {
             public void onTextMessage(TextMessageEvent e) {
                 if (e.getMessage().equalsIgnoreCase("!channels")) channelsCommand(e);
                 if (e.getMessage().equalsIgnoreCase("!afk")) afkCommand(e);
-                if (e.getMessage().equalsIgnoreCase("!qafk")) qafkCommand(e);
+                if (e.getMessage().equalsIgnoreCase("!qafk")) quickAfkCommand(e);
             }
         });
     }
@@ -39,10 +38,10 @@ public class Events {
         api.sendPrivateMessage(e.getInvokerId(), "Moved you to the AFK channel.");
     }
 
-    private static void qafkCommand(TextMessageEvent e) {
-        qafkUsers.put(e.getInvokerUniqueId(), System.currentTimeMillis());
+    private static void quickAfkCommand(TextMessageEvent e) {
+        Main.qafk.listUser(e.getInvokerUniqueId());
         api.moveClient(e.getInvokerId(), Integer.parseInt(Main.config.getPropertyValue("teamspeak.afkChannel.quick")));
-        api.sendPrivateMessage(e.getInvokerId(), "Moved you to the AFK channel.");
+        api.sendPrivateMessage(e.getInvokerId(), "Moved you to the quick AFK channel.");
     }
 
 }
