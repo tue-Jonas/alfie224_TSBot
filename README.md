@@ -13,5 +13,7 @@
 Open the [config.properties](./src/main/resources/config.properties) file and change the values to your needs.
 
 ### Starting the bot
-- Option 1: Run .jar with a double click. The bot will start in the background.
-- Option 2: Open a terminal and type `java -jar <filename>.jar`.
+1. Download the [alfie224_TSBot-1.0.jar](./alfie224_TSBot-1.0.jar) file.
+2. Run the bot:
+   - Option 1: Run `alfie224_TSBot-1.0.jar` with a double click. The bot will start in the background.
+   - Option 2: Open a terminal and type `java -jar alfie224_TSBot-1.0.jar`.
