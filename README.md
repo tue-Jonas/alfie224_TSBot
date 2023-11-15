@@ -10,11 +10,13 @@
 - `welcomemessage` - Sends the specified message to users joining the server
 
 ### Configuration
-Open the [config.properties](./src/main/resources/config.properties) file and change the values to your needs.
+The configuration is located in the [config.properties](./src/main/resources/config.properties) file.
 
 ### Starting the bot
 1. Download the [alfie224_TSBot-1.0.jar](./alfie224_TSBot-1.0.jar) file.
-2. Run the bot:
+2. Download the [config.properties](./src/main/resources/config.properties) file and place it in the same directory as the jar file.
+3. Open the config.properties file and change the values to your requirements.
+4. Run the bot:
    - Option 1: Run `alfie224_TSBot-1.0.jar` with a double click. The bot will start in the background.
    - Option 2: Open a terminal and type `java -jar alfie224_TSBot-1.0.jar`.
 
