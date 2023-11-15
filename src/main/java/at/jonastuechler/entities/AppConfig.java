@@ -1,5 +1,6 @@
 package at.jonastuechler.entities;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,7 +11,9 @@ public class AppConfig {
 
     public AppConfig() {
         configProps = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+
+        // try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = new FileInputStream("config.properties")) {
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
