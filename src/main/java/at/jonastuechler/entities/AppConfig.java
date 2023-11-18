@@ -12,8 +12,8 @@ public class AppConfig {
     public AppConfig() {
         configProps = new Properties();
 
-        // try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-        try (InputStream input = new FileInputStream("config.properties")) {
+         try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+//        try (InputStream input = new FileInputStream("config.properties")) {
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
